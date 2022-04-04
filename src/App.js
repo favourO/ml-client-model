@@ -1,23 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import './index'
+import { Button, Form, } from 'react-bootstrap';
+import { years, months, accounts, costCentres } from './utils';
 
 function App() {
+
+  const [year, setYear] = useState(2020);
+  const [month, setMonth] = useState("Jan");
+  const [costCenter, setCostCenter] = useState("CC101");
+  const [account, setAccount] = useState(1000000);
+
+  const runPred = async (year, month, account, costCenter) => {
+    console.log(year, month, account, costCenter)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <br />
+      <div className="col-md-6 offset-3">
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Year</Form.Label>
+            <Form.Select
+              onChange={(e) => setYear(e.target.value)}
+            >
+              {years.map((year => (<option key={year}>{year}</option>)))}
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Month</Form.Label>
+            <Form.Select
+              onChange={(e) => setMonth(e.target.value)}
+            >
+              {months.map((month => (<option key={month}>{month}</option>)))}
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Account</Form.Label>
+            <Form.Select
+              onChange={(e) => setAccount(e.target.value)}
+            >
+              {accounts.map((account => (<option key={account}>{account}</option>)))}
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Cost Centres</Form.Label>
+            <Form.Select
+              onChange={(e) => setCostCenter(e.target.value)}
+            >
+              {costCentres.map((costC => (<option key={costC}>{costC}</option>)))}
+            </Form.Select>
+          </Form.Group>
+          
+          <Button variant="primary" type="submit" onClick={() => runPred(year, month, account, costCenter)}>
+            Predict
+          </Button>
+        </Form>
+      </div>
+      
     </div>
   );
 }
